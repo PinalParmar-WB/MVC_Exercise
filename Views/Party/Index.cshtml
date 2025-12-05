@@ -1,0 +1,55 @@
+﻿@using Exercise_MVC.Models
+@model IEnumerable<Party>
+
+<div class="flex flex-wrap -mx-3">
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <div class="bg-red-100 text-red-800">@ViewBag.ErrorMsg</div>
+    }
+    @if (ViewBag.SuccessMsg != null)
+    {
+        <div class="bg-green-100 text-green-800">@ViewBag.SuccessMsg</div>
+    }
+    <div class="flex-none w-3/6 max-w-full px-3 ">
+        <div class="relative flex flex-col min-w-0 dark:bg-indigo-200 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex justify-between">
+                <h6 class="dark:text-indigo-600 font-bold text-2xl">Party table</h6>
+                <a asp-controller="Party" asp-action="Add">
+                    <button class="bg-indigo-500 px-4 py-2 text-white text-lg rounded">
+                        + Add
+                    </button>
+                </a>
+            </div>
+            <div class="flex-auto px-0 pt-0 pb-2">
+                <div class="p-0 overflow-x-auto ">
+                    <table class="w-full items-center mb-0 align-top border-collapse dark:border-black/40 text-slate-500">
+                        <thead class="align-bottom">
+                            <tr>
+                                <th class="px-6 py-3 text-lg font-bold text-left  align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-black text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Party Name</th>
+                                <th class="px-6 py-3 text-lg font-bold text-left  align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-black text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <td class="pl-6  bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                        <span class="font-semibold dark:text-black text-slate-400 text-left">@product.PartyName</span>
+                                    </td>
+                                    <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent flex">
+                                        <a asp-controller="Party" asp-action="Add" asp-route-id="@product.PartyId" class="bg-green-500 w-8 h-8 text-center shadow-sm rounded-xl">
+                                            <i class="text-white ni ni-ruler-pencil relative top-0.75 text-sm"></i>
+                                        </a>
+                                        <a asp-controller="Party" asp-action="Delete" asp-route-id="@product.PartyId" class="bg-red-500 ml-3 w-8 h-8 text-center shadow-sm rounded-xl">
+                                            <i class="text-white ni ni-fat-remove relative top-0.25 text-2xl"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
