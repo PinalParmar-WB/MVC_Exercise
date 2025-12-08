@@ -26,10 +26,11 @@ namespace MVC_Exercise.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            var user = new ApplicationUser { UserName = vm.Email, Email = vm.Email, DisplayName = vm.UserName };
+            var user = new ApplicationUser { UserName = vm.Email, Email = vm.Email, DisplayName = vm.UserName, EmailConfirmed = true };
             var result = await _userManager.CreateAsync(user, vm.Password);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Employee");
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }

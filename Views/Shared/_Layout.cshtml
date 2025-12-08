@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -115,6 +116,11 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="flex">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <h3 class="text-white dark:text-white">Admin Panel</h3>
+                    }
+                    <h3 class="text-white dark:text-white">Role: @string.Join(",", User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value))</h3>
                     <h3 class="text-white dark:text-white">Hello, @User.Identity.Name</h3>
                     <a asp-action="Logout" asp-controller="Account" class="text-white dark:text-white">Logout</a>
                 </div>

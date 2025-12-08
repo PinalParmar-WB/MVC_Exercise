@@ -8,29 +8,53 @@ namespace MVC_Exercise.DBContext
         public static async Task SeedAsync(IServiceProvider services)
         {
             using var scope = services.CreateScope();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            string[] roles = new[] { "Admin", "User" };
-
+            // Roles to ensure exist
+            var roles = new[] { "Admin", "Employee" };
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
                     await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            // Admin user
+            // Optional: Seed an admin user
             var adminEmail = "admin@example.com";
-            var admin = await userManager.FindByEmailAsync(adminEmail);
-            if (admin == null)
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
             {
-                admin = new ApplicationUser { UserName = "admin", Email = adminEmail, EmailConfirmed = true, DisplayName = "Administrator" };
-                var result = await userManager.CreateAsync(admin, "@Admin1"); // strong password
-                if (result.Succeeded)
+                adminUser = new ApplicationUser
                 {
-                    await userManager.AddToRoleAsync(admin, "Admin");
+                    UserName = "admin",
+                    Email = adminEmail,
+                    EmailConfirmed = true,
+                    DisplayName = "Site Admin"
+                };
+                var createAdmin = await userManager.CreateAsync(adminUser, "P@ssw0rd!"); // change password in prod
+                if (createAdmin.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
                 }
-                // handle errors if any
+            }
+
+            // Optional: Seed an employee user
+            var empEmail = "employee@example.com";
+            var empUser = await userManager.FindByEmailAsync(empEmail);
+            if (empUser == null)
+            {
+                empUser = new ApplicationUser
+                {
+                    UserName = "employee",
+                    Email = empEmail,
+                    EmailConfirmed = true,
+                    DisplayName = "Employee User"
+                };
+                var createEmp = await userManager.CreateAsync(empUser, "P@ssw0rd!"); // change password in prod
+                if (createEmp.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(empUser, "Employee");
+                }
             }
         }
     }

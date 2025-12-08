@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Exercise.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class InvoiceController : Controller
     {
         private readonly IInvoiceService _InvoiceService;
