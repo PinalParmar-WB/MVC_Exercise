@@ -1,0 +1,104 @@
+﻿@using Exercise_MVC.Models
+@model Invoice
+
+<div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-3/6 max-w-full px-3 ">
+        <div class="relative flex flex-col min-w-0 dark:bg-indigo-200 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <h6 class="dark:text-indigo-600 font-bold text-2xl">Add Invoice</h6>
+            </div>
+            <div class="flex-auto px-0 pt-0 pb-2">
+                <div class="p-0 overflow-x-auto ">
+                    <form class="m-4" asp-action="Add" asp-controller="Invoice" method="post">
+                        <div class="space-y-12">
+                            <div pb-12">
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <input type="hidden" asp-for="InvoiceId" />
+                                    <div class="sm:col-span-3">
+                                        <label asp-for="PartyId" class="block text-lg font-medium">Party Name</label>
+                                        <div class="mt-2">
+                                            <select asp-for="PartyId" class="w-full rounded-md bg-white/2 px-3 py-1.5 dark:border-solid dark:border-red placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm">
+                                                <option value="">Select Party Name</option>
+                                                @foreach (var v in ViewBag.Partys)
+                                                {
+                                                    <option value="@v.PartyId">@v.PartyName</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="PartyId" class="text-sm text-red-600 font-bold"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label asp-for="ProductId" class="block text-lg font-medium">Product Name</label>
+                                        <div class="mt-2">
+                                            <select asp-for="ProductId" id="ProductId" class="w-full rounded-md bg-white/2 px-3 py-1.5 dark:border-solid dark:border-red placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm">
+                                                <option value="">Select Product Name</option>
+                                                @foreach (var v in ViewBag.Products)
+                                                {
+                                                    <option value="@v.ProductId" data-rate="@v.ProductRate">@v.ProductName</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="ProductId" class="text-sm text-red-600 font-bold"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-12">
+                            <div pb-12">
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="sm:col-span-3">
+                                        <label asp-for="Quantity" class="block text-lg font-medium">Quantity</label>
+                                        <div class="mt-2">
+                                            <input asp-for="Quantity" id="Quantity" type="number" class="w-full rounded-md bg-white/2 px-3 py-1.5 dark:border-solid dark:border-red placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm" />
+                                            <span asp-validation-for="Quantity" class="text-sm text-red-600 font-bold"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label asp-for="TotalAmount" class="block text-lg font-medium">Total Amount</label>
+                                        <div class="mt-2">
+                                            <input asp-for="TotalAmount" id="Total" type="number" class="w-full rounded-md bg-white/2 px-3 py-1.5 dark:border-solid dark:border-red placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm" readonly/>
+                                            <span asp-validation-for="TotalAmount" class="text-sm text-red-600 font-bold"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-end gap-x-6">
+                            <a asp-controller="Invoice" asp-action="Index" type="button" class="rounded-md text-sm bg-indigo-100 px-3 py-2 font-semibold text-black">Cancel</a>
+                            <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var productSelect = document.querySelector('#ProductId');
+        var quantityInput = document.querySelector('#Quantity');
+        var totalInput = document.querySelector('#Total');
+
+        function calculateTotal() {
+            var selectedOption = productSelect.options[productSelect.selectedIndex];
+            var rate = selectedOption.getAttribute("data-rate");
+            var qty = quantityInput.value;
+
+            if (rate && qty) {
+                totalInput.value = (rate * qty).toFixed(2); // 2 decimal points
+            } else {
+                totalInput.value = "";
+            }
+        }
+
+        productSelect.addEventListener("change", calculateTotal);
+        quantityInput.addEventListener("input", calculateTotal);
+    </script>
+
+}

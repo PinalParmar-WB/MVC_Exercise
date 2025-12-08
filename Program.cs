@@ -1,5 +1,7 @@
 using Exercise_MVC.DBContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MVC_Exercise.Models;
 using MVC_Exercise.ServiceContract;
 using MVC_Exercise.Services;
 
@@ -11,14 +13,38 @@ namespace MVC_Exercise
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            // Identity: choose AddIdentity if you need roles and full customization
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                // Password, lockout, user, sign in settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false; // set true to require email confirmation
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IPartyService, PartyService>();
+            builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
+            // cookie settings (optional)
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromDays(14);
+            });
 
             var app = builder.Build();
 
@@ -33,6 +59,7 @@ namespace MVC_Exercise
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication(); // must be before Authorization
             app.UseAuthorization();
 
             app.MapStaticAssets();

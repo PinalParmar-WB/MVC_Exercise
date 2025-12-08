@@ -9,8 +9,6 @@ D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\MVC_Exercise.RazorAsse
 D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\MVC_Exercise.RazorAssemblyInfo.cs
 D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\appsettings.Development.json
 D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\appsettings.json
-D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\package-lock.json
-D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\package.json
 D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\MVC_Exercise.staticwebassets.runtime.json
 D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\MVC_Exercise.staticwebassets.endpoints.json
 D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\MVC_Exercise.exe
@@ -284,3 +282,9 @@ D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\refint\MVC_Exercise.dl
 D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\MVC_Exercise.pdb
 D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\MVC_Exercise.genruntimeconfig.cache
 D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\ref\MVC_Exercise.dll
+D:\DotNet_Course\Exercise_2\MVC_Exercise\obj\Debug\net9.0\MVC_Exercise.sourcelink.json
+D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+D:\DotNet_Course\Exercise_2\MVC_Exercise\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll

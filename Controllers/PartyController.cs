@@ -1,10 +1,12 @@
 ﻿using Exercise_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Exercise.ServiceContract;
 using System.Threading.Tasks;
 
 namespace MVC_Exercise.Controllers
 {
+    [Authorize]
     public class PartyController : Controller
     {
         private readonly IPartyService _PartyService;
