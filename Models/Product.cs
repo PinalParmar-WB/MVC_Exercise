@@ -11,6 +11,7 @@ namespace Exercise_MVC.Models
         public string ProductName { get; set; } = String.Empty;
 
         [Required(ErrorMessage = "Product Rate should not be empty")]
+        [Range(1, 100000)]
         public double ProductRate { get; set; }
 
     }

@@ -1,7 +1,9 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Exercise.Models;
+using MVC_Exercise.ServiceContract;
 
 namespace MVC_Exercise.Controllers
 {
@@ -9,14 +11,18 @@ namespace MVC_Exercise.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IInvoiceService _invoiceService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IInvoiceService invoice)
         {
+            _invoiceService = invoice;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<DashboardCount> counts = await _invoiceService.GetDashboardCount();
+            ViewBag.Counts = counts;
             return View();
         }
 

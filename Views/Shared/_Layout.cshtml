@@ -22,17 +22,20 @@
     <!-- 4. Main Argon Dashboard CSS (This replaces the CDN link) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link id="pagestyle" href="~/assets/css/argon-dashboard-tailwind.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+
 </head>
 <body class="bg-indigo-50">
     <!-- sidenav  -->
     <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
         <div class="h-19">
             <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-black text-slate-400 xl:hidden" sidenav-close></i>
-            <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-black text-slate-700" href="https://demos.creative-tim.com/argon-dashboard-tailwind/pages/dashboard.html" target="_blank">
+            <div class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-black text-slate-700">
                 <img src="~/assets/img/logo-ct-dark.png" class="inline h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
                 <img src="~/assets/img/logo-ct.png" class="hidden h-full max-w-full transition-all duration-200  ease-nav-brand max-h-8" alt="main_logo" />
                 <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">Invoice Project</span>
-            </a>
+            </div>
         </div>
 
         <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
@@ -76,23 +79,6 @@
                 </li>
             </ul>
         </div>
-
-        <div class="mx-4">
-            <!-- load phantom colors for card after: -->
-            <p class="invisible hidden text-gray-800 text-red-500 text-red-600 text-blue-500 bg-gray-500/30 bg-cyan-500/30 bg-emerald-500/30 bg-orange-500/30 bg-red-500/30 after:bg-gradient-to-tl after:from-zinc-800 after:to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 after:from-blue-700 after:to-cyan-500 after:from-orange-500 after:to-yellow-500 after:from-green-600 after:to-lime-400 after:from-red-600 after:to-orange-600 after:from-slate-600 after:to-slate-300 text-emerald-500 text-cyan-500 text-slate-400"></p>
-            <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border" sidenav-card>
-                <img class="w-1/2 mx-auto" src="~/assets/img/illustrations/icon-documentation.svg" alt="sidebar illustrations" />
-                <div class="flex-auto w-full p-4 pt-0 text-center">
-                    <div class="transition-all duration-200 ease-nav-brand">
-                        <h6 class="mb-0 dark:text-black text-slate-700">Need help?</h6>
-                        <p class="mb-0 text-xs font-semibold leading-tight dark:text-black dark:opacity-60">Please check our docs</p>
-                    </div>
-                </div>
-            </div>
-            <a href="https://www.creative-tim.com/learning-lab/tailwind/html/quick-start/argon-dashboard/" target="_blank" class="inline-block w-full px-8 py-2 mb-4 text-xs font-bold leading-normal text-center text-white capitalize transition-all ease-in rounded-lg shadow-md bg-slate-700 bg-150 hover:shadow-xs hover:-translate-y-px">Documentation</a>
-            <!-- pro btn  -->
-            <a class="inline-block w-full px-8 py-2 text-xs font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md select-none bg-150 bg-x-25 hover:shadow-xs hover:-translate-y-px" href="https://www.creative-tim.com/product/argon-dashboard-pro-tailwind?ref=sidebarfree" target="_blank">Upgrade to pro</a>
-        </div>
     </aside>
 
     <!-- end sidenav -->
@@ -100,22 +86,10 @@
 
     <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
         <!-- Navbar -->
-        <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
-            <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
-                <nav>
-                    <!-- breadcrumb -->
-                    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-                        <li class="text-sm leading-normal">
-                            <a class="text-white opacity-50" href="javascript:;">Pages</a>
-                        </li>
-                        <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Dashboard</li>
-                    </ol>
-                    <h6 class="mb-0 font-bold text-white capitalize">Dashboard</h6>
-                </nav>
-            </div>
+        <nav class="relative flex flex-wrap items-center justify-end px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-end" navbar-main navbar-scroll="false">
             @if (User.Identity.IsAuthenticated)
             {
-                <div class="flex">
+                <div class="flex gap-5 p-5">
                     @if (User.IsInRole("Admin"))
                     {
                         <h3 class="text-white dark:text-white">Admin Panel</h3>
@@ -145,6 +119,51 @@
 
     <!-- Control Center for Argon Dashboard -->
     <script src="~/assets/js/argon-dashboard-tailwind.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable({
+                searching: true,     // search box
+                ordering: true,      // sorting
+                paging: true,        // pagination
+                pageLength: 5,       // rows per page
+                lengthChange: true,  // show entries dropdown
+                info: true,          // "Showing X of Y entries"
+                columnDefs: [
+                    { orderable: false, targets: 2 } // Disable sorting for Action column
+                ]
+            });
+        });
+        $(document).ready(function () {
+            $('#partyTable').DataTable({
+                searching: true,     // search box
+                ordering: true,      // sorting
+                paging: true,        // pagination
+                pageLength: 5,       // rows per page
+                lengthChange: true,  // show entries dropdown
+                info: true,          // "Showing X of Y entries"
+                columnDefs: [
+                    { orderable: false, targets: 1 } // Disable sorting for Action column
+                ]
+            });
+        });
+        $(document).ready(function () {
+            $('#invoiceTable').DataTable({
+                searching: true,     // search box
+                ordering: true,      // sorting
+                paging: true,        // pagination
+                pageLength: 5,       // rows per page
+                lengthChange: true,  // show entries dropdown
+                info: true,          // "Showing X of Y entries"
+                columnDefs: [
+                    { orderable: false, targets: 5 } // Disable sorting for Action column
+                ]
+            });
+        });
+    </script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -92,5 +92,30 @@ namespace MVC_Exercise.Services
         {
             return await _context.Invoices.FirstOrDefaultAsync(p => p.InvoiceId == id);
         }
+
+        public async Task<List<DashboardCount>> GetDashboardCount()
+        {
+            var products = await _context.Products.CountAsync();
+            var partys = await _context.Partys.CountAsync();
+            var invoices = await _context.Invoices.CountAsync();
+            return new List<DashboardCount>()
+            {
+                new DashboardCount
+                {
+                    Name = "Products",
+                    Count = products
+                },
+                new DashboardCount
+                {
+                    Name = "Parties",
+                    Count = partys
+                },
+                new DashboardCount
+                {
+                    Name = "Invoices",
+                    Count = invoices
+                }
+            };
+        }
     }
 }
